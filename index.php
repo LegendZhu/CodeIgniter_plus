@@ -33,10 +33,13 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(E_ALL | E_STRICT);
 		break;
 	
 		case 'testing':
+      error_reporting(E_ALL | E_STRICT);
+    break;
+
 		case 'production':
 			error_reporting(0);
 		break;
@@ -45,6 +48,8 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
+
+date_default_timezone_set('Asia/Shanghai');
 
 /*
  *---------------------------------------------------------------
@@ -174,6 +179,9 @@ if (defined('ENVIRONMENT'))
 
 	// Name of the "system folder"
 	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
+
+  // Name of the "root folder"
+  define('ROOTPATH', str_replace('\\', '/', realpath(dirname(__FILE__) . '/')));
 
 
 	// The path to the "application" folder
