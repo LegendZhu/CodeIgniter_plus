@@ -344,7 +344,7 @@ if ( ! function_exists('show_404'))
 */
 if ( ! function_exists('log_message'))
 {
-	function log_message($level = 'error', $message, $php_error = FALSE)
+	function log_message($level = 'error', $message, $context = array(), $php_error = FALSE)
 	{
 		static $_log;
 
@@ -354,7 +354,7 @@ if ( ! function_exists('log_message'))
 		}
 
 		$_log =& load_class('Log');
-		$_log->write_log($level, $message, $php_error);
+		$_log->write_log($level, $message, $context, $php_error);
 	}
 }
 

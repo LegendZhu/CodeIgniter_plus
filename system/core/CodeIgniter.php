@@ -71,6 +71,8 @@
  */
 	set_error_handler('_exception_handler');
 
+//  register_shutdown_function('_fatal_handler');
+
 	if ( ! is_php('5.3'))
 	{
 		@set_magic_quotes_runtime(0); // Kill magic quotes
@@ -397,6 +399,17 @@
 		$CI->db->close();
 	}
 
+function _fatal_handler() {
+    $error = error_get_last();
+    if( $error !== NULL) {
+        $info['code']   = $error["type"];
+        $info['file'] = $error["file"];
+        $info['line'] = $error["line"];
+        $info['message']  = $error["message"];
+
+        log_message('ERROR' ,$error["message"], $info);
+    }
+}
 
 /* End of file CodeIgniter.php */
 /* Location: ./system/core/CodeIgniter.php */
