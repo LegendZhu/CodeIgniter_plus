@@ -81,7 +81,6 @@ class CI_Log {
             self::$log_unique_id = $config['log_unique_id'] = substr(md5(uniqid() . mt_rand(1000, 9999)), 2, 8) . time();
         }
 
-        echo 1, $this->echo_memory_usage() . '</br>';
         if (!defined('ENVIRONMENT') OR !file_exists($file_path = APPPATH . 'config/' . ENVIRONMENT . '/' . $this->_log_config_file)) {
             $log_config_path = APPPATH . 'config/' . $this->_log_config_file;
         }
@@ -99,7 +98,6 @@ class CI_Log {
             $this->config['log_path'] = APPPATH . 'logs/';
         }
         $this->_log_path = $this->config['log_path'];
-        echo 2, $this->echo_memory_usage() . '</br>';
 
         if (!is_dir($this->_log_path) OR !is_really_writable($this->_log_path)) {
             $this->_enabled = FALSE;
@@ -120,23 +118,9 @@ class CI_Log {
             $this->output = "[%level_name%] [%datetime%] [%message%] | %context% |%extra%\n";;
         }
 
-        echo 4, $this->echo_memory_usage() . '</br>';
-
         if (is_null($this->log)) {
             $this->initialize();
         }
-        echo 5, $this->echo_memory_usage() . '</br>';
-
-    }
-
-    function echo_memory_usage() {
-        $mem_usage = memory_get_usage(true);
-        if ($mem_usage < 1024)
-            echo $mem_usage . "B";
-        elseif ($mem_usage < 1048576)
-            echo round($mem_usage / 1024, 2) . "K";
-        else
-            echo round($mem_usage / 1048576, 2) . "M";
     }
 
     private function initialize() {
@@ -159,7 +143,6 @@ class CI_Log {
 
         $this->write_log('DEBUG', 'Log Class Initialized');
     }
-
 
     public function write_log($level = 'error', $msg, $context = array(), $php_error = FALSE) {
         $level = strtoupper($level);
@@ -233,7 +216,6 @@ class CI_Log {
                 //                default;
             }
         }
-        echo 6, $this->echo_memory_usage() . '</br>';
 
         return true;
     }
