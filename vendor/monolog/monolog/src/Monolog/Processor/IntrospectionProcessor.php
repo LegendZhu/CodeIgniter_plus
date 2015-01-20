@@ -54,6 +54,9 @@ class IntrospectionProcessor
         // the call_user_func call is also skipped
         array_shift($trace);
         array_shift($trace);
+        array_shift($trace);
+        array_shift($trace);
+        array_shift($trace);
 
         $i = 0;
 
