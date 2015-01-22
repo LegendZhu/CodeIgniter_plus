@@ -181,7 +181,7 @@ date_default_timezone_set('Asia/Shanghai');
 	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 
   // Name of the "root folder"
-  define('ROOTPATH', str_replace('\\', '/', realpath(dirname(__FILE__) . '/')));
+  define('ROOTPATH', str_replace('\\', '/', BASEPATH . '../'));
 
 
 	// The path to the "application" folder
