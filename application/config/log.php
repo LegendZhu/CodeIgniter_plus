@@ -1,14 +1,19 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['handlers'] = array('file');
+$config['handlers'] = array('file');//暂未用到，作为多处写预留
 
 $config['threshold'] = '6'; // 'ERROR' => '1', 'WARNING' => '2', 'NOTICE' => '3', 'INFO' => '4', 'DEBUG' => '5', 'ALL' => '6'
 
-$config['introspection_processor'] = TRUE; // add some meta data such as controller and line number to log messages
+$config['threshold_extra'] = TRUE;//是否记录扩展信息
+
+$config['introspection_processor'] = TRUE; // 记录类名方法
+
+$config['record_memory_info'] = TRUE;// 是否记录内存实用信息
 
 $config['log_path'] = APPPATH . 'logs/';
 
-$config['log_name'] = 'log';
+$config['log_name'] = 'log';//日志名前缀
 
-// exclusion list for pesky messages which you may wish to temporarily suppress with strpos() match
-$config['exclusion_list'] = array();
+$config['log_cut'] = 'h';//d:按日切割,h:按小时切割
+
+$config['exclusion_list'] = array();//过滤日志

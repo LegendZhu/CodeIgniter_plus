@@ -13,10 +13,12 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\BufferHandler;
 
 use Monolog\Processor\IntrospectionProcessor;
-use Monolog\Processor\MemoryUsageProcessor;
-use Monolog\Processor\MemoryPeakUsageProcessor;
+use Monolog\Processor\WebProcessor;
 use Monolog\Processor\UidProcessor;
 use Monolog\Processor\ProcessIdProcessor;
+
+use Monolog\Processor\MemoryUsageProcessor;
+use Monolog\Processor\MemoryPeakUsageProcessor;
 
 // ------------------------------------------------------------------------
 
@@ -27,9 +29,18 @@ use Monolog\Processor\ProcessIdProcessor;
 class CI_Log {
 
     private $log;
+    private $log_wf;
+
     protected $_log_path;
     protected $_log_name;
     protected $_log_config_file = 'log.php';
+    protected $_log_cut;
+
+    protected $_threshold;
+    protected $_threshold_default = 4; //默认日志级别
+    protected $_threshold_extra = TRUE; //默认开启扩展信息级别
+
+    protected $_record_memory_info = TRUE;
 
     /*
      * the default date format is "Y-m-d H:i:s"
@@ -45,6 +56,7 @@ class CI_Log {
 
     public $config;
 
+    private $formatter;
     /*
         emergency
         System is unusable.
@@ -83,7 +95,7 @@ class CI_Log {
      */
     public function __construct() {
         if (empty(self::$log_unique_id)) {
-            self::$log_unique_id = $config['log_unique_id'] = substr(md5(uniqid() . mt_rand(1000, 9999)), 2, 8) . time();
+            self::$log_unique_id = $config['log_unique_id'] = substr(md5(uniqid('', true)), 2, 8) . mt_rand(1000, 9999);
         }
 
         if (!defined('ENVIRONMENT') OR !file_exists($file_path = APPPATH . 'config/' . ENVIRONMENT . '/' . $this->_log_config_file)) {
@@ -112,16 +124,20 @@ class CI_Log {
             $this->config['log_name'] = 'log';
         }
         $this->_log_name = $this->config['log_name'];
+        $this->_log_cut = $this->config['log_cut'];
 
         if (isset($this->config['threshold']) && is_numeric($this->config['threshold'])) {
             $this->_threshold = $this->config['threshold'];
         } else {
-            $this->_threshold = $this->config['threshold'] = '4';
+            $this->_threshold = $this->config['threshold'] = $this->_threshold_default;
         }
 
-        if ($this->_threshold > 4) {
-            $this->output = "[%level_name%] [%datetime%] [%message%] | %context% |%extra%\n";;
+        $this->_threshold_extra = isset($this->config['threshold_extra']) ? $this->config['threshold_extra'] : $this->_threshold_extra;
+        if ($this->_threshold_extra) {
+            $this->output = "[%level_name%] [%datetime%] [%message%] | %context% |%extra%\n";
         }
+
+        $this->_record_memory_info = isset($this->config['record_memory_info']) ? $this->config['record_memory_info'] : $this->_record_memory_info;
 
         if (is_null($this->log)) {
             $this->initialize();
@@ -131,19 +147,26 @@ class CI_Log {
     // --------------------------------------------------------------------
 
     private function initialize() {
-        $formatter = new LineFormatter($this->output, $this->_date_fmt);
+        $this->formatter = $formatter = new LineFormatter($this->output, $this->_date_fmt);
         $this->log = new Logger($this->_log_name);
+
         $error_handle = new MY_ErrorHandler($this->log);
         $error_handle->register($this->log);
 
-        if ($this->_threshold > 4) {
-//            $this->log->pushProcessor(new MemoryUsageProcessor());
-//            $this->log->pushProcessor(new MemoryPeakUsageProcessor());
+        if ($this->_threshold_extra) {
             $this->log->pushProcessor(new UidProcessor());
+            $this->log->pushProcessor(new WebProcessor());
             $this->log->pushProcessor(new ProcessIdProcessor());
+            if ($this->_record_memory_info) {
+                $this->log->pushProcessor(new MemoryUsageProcessor());
+                $this->log->pushProcessor(new MemoryPeakUsageProcessor());
+            }
         }
 
         $handler = new RotatingFileHandler($this->_log_path . $this->_log_name);
+        if ('H' === strtoupper($this->_log_cut)) {
+            $handler->setFilenameFormat('{filename}-{date}', 'Y-m-d-H');
+        }
 
         $handler->setFormatter($formatter);
         $this->log->pushHandler($handler);
@@ -174,17 +197,6 @@ class CI_Log {
             $level = 'ALL';
         }
 
-        // filter out anything in $this->config['exclusion_list']
-        if (!empty($this->config['exclusion_list'])) {
-            foreach ($this->config['exclusion_list'] as $findme) {
-                $pos = strpos($msg, $findme);
-                if ($pos !== false) {
-                    // just exit now - we don't want to log this error
-                    return true;
-                }
-            }
-        }
-
         if (!is_array($context)) {
             $context = array($context);
         }
@@ -212,6 +224,9 @@ class CI_Log {
         //'ERROR' => '1', 'WARNING' => '2', 'NOTICE' => '3', 'INFO' => '4', 'DEBUG' => '5', 'ALL' => '6'
         if ($this->_levels[$level] <= $this->_threshold) {
             switch ($level) {
+                case 'EMERGENCY':
+                case 'ALERT':
+                case 'CRITICAL':
                 case 'ERROR':
                     $this->log->addError($msg, $context);
                     break;
@@ -230,7 +245,6 @@ class CI_Log {
                 case 'ALL':
                     $this->log->addInfo($msg, $context);
                     break;
-                //                default;
             }
         }
 
