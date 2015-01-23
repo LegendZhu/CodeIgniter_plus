@@ -186,6 +186,7 @@ class CI_Log {
      */
     public function write_log($level = 'error', $msg, $context = array(), $php_error = FALSE) {
         $level = strtoupper($level);
+        $msg = trim($msg);
 
         if ($this->_enabled === FALSE) {
             return FALSE;
@@ -202,7 +203,7 @@ class CI_Log {
         }
 
         if (self::$log_unique_id) {
-            $msg = 'log_id:' . self::$log_unique_id . ',' . trim($msg);
+            $msg = 'log_id:' . self::$log_unique_id . ',' . $msg;
         }
 
         // filter out anything in $this->config['exclusion_list']
