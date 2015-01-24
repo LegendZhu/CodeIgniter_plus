@@ -454,6 +454,8 @@ class CI_DB_driver {
 			$this->initialize();
 		}
 
+		log_message('debug', 'SQL:' . $sql);
+
 		return $this->_execute($sql);
 	}
 
