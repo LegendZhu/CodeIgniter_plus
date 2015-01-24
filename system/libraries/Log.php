@@ -95,7 +95,9 @@ class CI_Log {
      */
     public function __construct() {
         if (empty(self::$log_unique_id)) {
-            self::$log_unique_id = $config['log_unique_id'] = substr(md5(uniqid('', true)), 2, 8) . mt_rand(1000, 9999);
+//            self::$log_unique_id = $config['log_unique_id'] = substr(md5(uniqid('', true)), 2, 8) . mt_rand(1000, 9999);
+            list($usec, $sec) = explode(' ', microtime());
+            self::$log_unique_id = $config['log_unique_id'] = $sec . substr($usec, 2, 6) . mt_rand(100, 999);
         }
 
         if (!defined('ENVIRONMENT') OR !file_exists($file_path = APPPATH . 'config/' . ENVIRONMENT . '/' . $this->_log_config_file)) {
@@ -255,6 +257,14 @@ class CI_Log {
     static function get_log_id() {
         if (self::$log_unique_id) {
             return 'log_id:' . self::$log_unique_id . ',';
+        } else {
+            return '';
+        }
+    }
+
+    static function log_id() {
+        if (self::$log_unique_id) {
+            return self::$log_unique_id;
         } else {
             return '';
         }
