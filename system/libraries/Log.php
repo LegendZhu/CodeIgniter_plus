@@ -113,7 +113,7 @@ class CI_Log {
         // make $config from config/log.php accessible to $this->write_log()
         $this->config = $config;
 
-        if (!isset($this->config['log_path']) || empty($this->config['log_path'])) {
+        if (isset($this->config['log_path']) || empty($this->config['log_path'])) {
             $this->config['log_path'] = APPPATH . 'logs/';
         }
         $this->_log_path = $this->config['log_path'];
@@ -122,7 +122,7 @@ class CI_Log {
             $this->_enabled = FALSE;
         }
 
-        if (!isset($this->config['log_name']) || empty($this->config['log_name'])) {
+        if (isset($this->config['log_path']) || empty($this->config['log_path'])) {
             $this->config['log_name'] = 'log';
         }
         $this->_log_name = $this->config['log_name'];
