@@ -1,594 +1,480 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// ------------------------------------------------------------------------
+if (!function_exists('get_cc_by_mcc')) {
+    function get_cc_by_mcc($mcc) {
+        $mcc_code = array(
+          '289' => 'ge',
+          '412' => 'af',
+          '276' => 'al',
+          '603' => 'dz',
+          '544' => 'as',
+          '213' => 'ad',
+          '631' => 'ao',
+          '365' => 'ai',
+          '344' => 'ag',
+          '722' => 'ar',
+          '283' => 'am',
+          '363' => 'aw',
+          '505' => 'au',
+          '232' => 'at',
+          '400' => 'az',
+          '364' => 'bs',
+          '426' => 'bh',
+          '470' => 'bd',
+          '342' => 'bb',
+          '257' => 'by',
+          '206' => 'be',
+          '702' => 'bz',
+          '616' => 'bj',
+          '350' => 'bm',
+          '402' => 'bt',
+          '736' => 'bo',
+          '218' => 'ba',
+          '652' => 'bw',
+          '724' => 'br',
+          '348' => 'vg',
+          '528' => 'bn',
+          '284' => 'bg',
+          '613' => 'bf',
+          '642' => 'bi',
+          '456' => 'kh',
+          '624' => 'cm',
+          '302' => 'ca',
+          '625' => 'cv',
+          '346' => 'ky',
+          '623' => 'cf',
+          '622' => 'td',
+          '730' => 'cl',
+          '460' => 'cn',
+          '732' => 'co',
+          '654' => 'km',
+          '629' => 'cg',
+          '548' => 'ck',
+          '712' => 'cr',
+          '219' => 'hr',
+          '368' => 'cu',
+          '280' => 'cy',
+          '230' => 'cz',
+          '630' => 'cd',
+          '238' => 'dk',
+          '638' => 'dj',
+          '366' => 'dm',
+          '370' => 'do',
+          '514' => 'tl',
+          '740' => 'ec',
+          '602' => 'eg',
+          '706' => 'sv',
+          '627' => 'gq',
+          '657' => 'er',
+          '248' => 'ee',
+          '636' => 'et',
+          '288' => 'fo',
+          '542' => 'fj',
+          '244' => 'fi',
+          '208' => 'fr',
+          '547' => 'pf',
+          '628' => 'ga',
+          '607' => 'gm',
+          '282' => 'ge',
+          '262' => 'de',
+          '620' => 'gh',
+          '266' => 'gi',
+          '202' => 'gr',
+          '290' => 'gl',
+          '352' => 'gd',
+          '340' => 'mq',
+          '704' => 'gt',
+          '611' => 'gn',
+          '632' => 'gw',
+          '738' => 'gy',
+          '372' => 'ht',
+          '708' => 'hn',
+          '454' => 'hk',
+          '216' => 'hu',
+          '274' => 'is',
+          '404' => 'in',
+          '405' => 'in',
+          '510' => 'id',
+          '432' => 'ir',
+          '418' => 'iq',
+          '272' => 'ie',
+          '425' => 'il',
+          '222' => 'it',
+          '612' => 'ci',
+          '338' => 'jm',
+          '440' => 'jp',
+          '416' => 'jo',
+          '401' => 'kz',
+          '639' => 'ke',
+          '545' => 'ki',
+          '467' => 'kp',
+          '450' => 'kr',
+          '212' => 'mc',
+          '293' => 'si',
+          '419' => 'kw',
+          '437' => 'kg',
+          '457' => 'la',
+          '247' => 'lv',
+          '415' => 'lb',
+          '651' => 'ls',
+          '618' => 'lr',
+          '606' => 'ly',
+          '295' => 'li',
+          '246' => 'lt',
+          '270' => 'lu',
+          '455' => 'mo',
+          '294' => 'mk',
+          '646' => 'mg',
+          '650' => 'mw',
+          '502' => 'my',
+          '472' => 'mv',
+          '610' => 'ml',
+          '278' => 'mt',
+          '609' => 'mr',
+          '617' => 'mu',
+          '334' => 'mx',
+          '550' => 'fm',
+          '259' => 'md',
+          '428' => 'mn',
+          '297' => 'me',
+          '604' => 'ma',
+          '643' => 'mz',
+          '414' => 'mm',
+          '649' => 'na',
+          '536' => 'nr',
+          '429' => 'np',
+          '204' => 'nl',
+          '362' => 'an',
+          '546' => 'nc',
+          '530' => 'nz',
+          '710' => 'ni',
+          '614' => 'ne',
+          '621' => 'ng',
+          '555' => 'nu',
+          '242' => 'no',
+          '422' => 'om',
+          '410' => 'pk',
+          '552' => 'pw',
+          '714' => 'pa',
+          '537' => 'pg',
+          '744' => 'py',
+          '716' => 'pe',
+          '515' => 'ph',
+          '260' => 'pl',
+          '268' => 'pt',
+          '330' => 'pr',
+          '427' => 'qa',
+          '647' => 're',
+          '226' => 'ro',
+          '250' => 'ru',
+          '635' => 'rw',
+          '356' => 'skn',
+          '358' => 'lc',
+          '308' => 'pm',
+          '360' => 'vc',
+          '549' => 'ws',
+          '292' => 'sm',
+          '626' => 'st',
+          '420' => 'sa',
+          '608' => 'sn',
+          '220' => 'rs',
+          '633' => 'sc',
+          '619' => 'sl',
+          '525' => 'sg',
+          '231' => 'sk',
+          '540' => 'sb',
+          '637' => 'so',
+          '655' => 'za',
+          '659' => 'ss',
+          '214' => 'es',
+          '413' => 'lk',
+          '634' => 'sd',
+          '746' => 'sr',
+          '653' => 'sz',
+          '240' => 'se',
+          '228' => 'ch',
+          '417' => 'sy',
+          '466' => 'tw',
+          '436' => 'tj',
+          '640' => 'tz',
+          '520' => 'th',
+          '615' => 'tg',
+          '539' => 'to',
+          '374' => 'tt',
+          '605' => 'tn',
+          '286' => 'tr',
+          '438' => 'tm',
+          '376' => 'tc',
+          '553' => 'tv',
+          '641' => 'ug',
+          '255' => 'ua',
+          '424' => 'ae',
+          '234' => 'uk',
+          '235' => 'uk',
+          '354' => 'uk',
+          '310' => 'us',
+          '311' => 'us',
+          '312' => 'us',
+          '313' => 'us',
+          '314' => 'us',
+          '315' => 'us',
+          '316' => 'us',
+          '748' => 'uy',
+          '434' => 'uz',
+          '541' => 'vu',
+          '225' => 'va',
+          '734' => 've',
+          '452' => 'vn',
+          '421' => 'ye',
+          '645' => 'zm',
+          '648' => 'zw',
+          '551' => 'mh');
 
-/**
- * CodeIgniter URL Helpers
- *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/url_helper.html
- */
+        if (!isset($mcc_code[$mcc])) {
+            return FAlSE;
+        }
 
-// ------------------------------------------------------------------------
-
-/**
- * Site URL
- *
- * Create a local URL based on your basepath. Segments can be passed via the
- * first parameter either as a string or an array.
- *
- * @access	public
- * @param	string
- * @return	string
- */
-if ( ! function_exists('site_url'))
-{
-	function site_url($uri = '')
-	{
-		$CI =& get_instance();
-		return $CI->config->site_url($uri);
-	}
+        return $mcc_code[$mcc];
+    }
 }
 
-// ------------------------------------------------------------------------
+if (!function_exists('get_mcc_by_cc')) {
+    function get_mcc_by_cc($cc) {
+        $code_mcc = array(
+          'ge' => '289',
+          'af' => '412',
+          'al' => '276',
+          'dz' => '603',
+          'as' => '544',
+          'ad' => '213',
+          'ao' => '631',
+          'ai' => '365',
+          'ag' => '344',
+          'ar' => '722',
+          'am' => '283',
+          'aw' => '363',
+          'au' => '505',
+          'at' => '232',
+          'az' => '400',
+          'bs' => '364',
+          'bh' => '426',
+          'bd' => '470',
+          'bb' => '342',
+          'by' => '257',
+          'be' => '206',
+          'bz' => '702',
+          'bj' => '616',
+          'bm' => '350',
+          'bt' => '402',
+          'bo' => '736',
+          'ba' => '218',
+          'bw' => '652',
+          'br' => '724',
+          'vg' => '348',
+          'bn' => '528',
+          'bg' => '284',
+          'bf' => '613',
+          'bi' => '642',
+          'kh' => '456',
+          'cm' => '624',
+          'ca' => '302',
+          'cv' => '625',
+          'ky' => '346',
+          'cf' => '623',
+          'td' => '622',
+          'cl' => '730',
+          'cn' => '460',
+          'co' => '732',
+          'km' => '654',
+          'cg' => '629',
+          'ck' => '548',
+          'cr' => '712',
+          'hr' => '219',
+          'cu' => '368',
+          'cy' => '280',
+          'cz' => '230',
+          'cd' => '630',
+          'dk' => '238',
+          'dj' => '638',
+          'dm' => '366',
+          'do' => '370',
+          'tl' => '514',
+          'ec' => '740',
+          'eg' => '602',
+          'sv' => '706',
+          'gq' => '627',
+          'er' => '657',
+          'ee' => '248',
+          'et' => '636',
+          'fo' => '288',
+          'fj' => '542',
+          'fi' => '244',
+          'fr' => '208',
+          'pf' => '547',
+          'ga' => '628',
+          'gm' => '607',
+          'ge' => '282',
+          'de' => '262',
+          'gh' => '620',
+          'gi' => '266',
+          'gr' => '202',
+          'gl' => '290',
+          'gd' => '352',
+          'mq' => '340',
+          'gt' => '704',
+          'gn' => '611',
+          'gw' => '632',
+          'gy' => '738',
+          'ht' => '372',
+          'hn' => '708',
+          'hk' => '454',
+          'hu' => '216',
+          'is' => '274',
+          'in' => '404',
+          'in' => '405',
+          'id' => '510',
+          'ir' => '432',
+          'iq' => '418',
+          'ie' => '272',
+          'il' => '425',
+          'it' => '222',
+          'ci' => '612',
+          'jm' => '338',
+          'jp' => '440',
+          'jo' => '416',
+          'kz' => '401',
+          'ke' => '639',
+          'ki' => '545',
+          'kp' => '467',
+          'kr' => '450',
+          'mc' => '212',
+          'si' => '293',
+          'kw' => '419',
+          'kg' => '437',
+          'la' => '457',
+          'lv' => '247',
+          'lb' => '415',
+          'ls' => '651',
+          'lr' => '618',
+          'ly' => '606',
+          'li' => '295',
+          'lt' => '246',
+          'lu' => '270',
+          'mo' => '455',
+          'mk' => '294',
+          'mg' => '646',
+          'mw' => '650',
+          'my' => '502',
+          'mv' => '472',
+          'ml' => '610',
+          'mt' => '278',
+          'mr' => '609',
+          'mu' => '617',
+          'mx' => '334',
+          'fm' => '550',
+          'md' => '259',
+          'mn' => '428',
+          'me' => '297',
+          'ma' => '604',
+          'mz' => '643',
+          'mm' => '414',
+          'na' => '649',
+          'nr' => '536',
+          'np' => '429',
+          'nl' => '204',
+          'an' => '362',
+          'nc' => '546',
+          'nz' => '530',
+          'ni' => '710',
+          'ne' => '614',
+          'ng' => '621',
+          'nu' => '555',
+          'no' => '242',
+          'om' => '422',
+          'pk' => '410',
+          'pw' => '552',
+          'pa' => '714',
+          'pg' => '537',
+          'py' => '744',
+          'pe' => '716',
+          'ph' => '515',
+          'pl' => '260',
+          'pt' => '268',
+          'pr' => '330',
+          'qa' => '427',
+          're' => '647',
+          'ro' => '226',
+          'ru' => '250',
+          'rw' => '635',
+          'skn' => '356',
+          'lc' => '358',
+          'pm' => '308',
+          'vc' => '360',
+          'ws' => '549',
+          'sm' => '292',
+          'st' => '626',
+          'sa' => '420',
+          'sn' => '608',
+          'rs' => '220',
+          'sc' => '633',
+          'sl' => '619',
+          'sg' => '525',
+          'sk' => '231',
+          'sb' => '540',
+          'so' => '637',
+          'za' => '655',
+          'ss' => '659',
+          'es' => '214',
+          'lk' => '413',
+          'sd' => '634',
+          'sr' => '746',
+          'sz' => '653',
+          'se' => '240',
+          'ch' => '228',
+          'sy' => '417',
+          'tw' => '466',
+          'tj' => '436',
+          'tz' => '640',
+          'th' => '520',
+          'tg' => '615',
+          'to' => '539',
+          'tt' => '374',
+          'tn' => '605',
+          'tr' => '286',
+          'tm' => '438',
+          'tc' => '376',
+          'tv' => '553',
+          'ug' => '641',
+          'ua' => '255',
+          'ae' => '424',
+          'uk' => '234',
+          'uk' => '235',
+          'uk' => '354',
+          'us' => '310',
+          'us' => '311',
+          'us' => '312',
+          'us' => '313',
+          'us' => '314',
+          'us' => '315',
+          'us' => '316',
+          'uy' => '748',
+          'uz' => '434',
+          'vu' => '541',
+          'va' => '225',
+          've' => '734',
+          'vn' => '452',
+          'ye' => '421',
+          'zm' => '645',
+          'zw' => '648',
+          'mh' => '551');
 
-/**
- * Base URL
- * 
- * Create a local URL based on your basepath.
- * Segments can be passed in as a string or an array, same as site_url
- * or a URL to a file can be passed in, e.g. to an image file.
- *
- * @access	public
- * @param string
- * @return	string
- */
-if ( ! function_exists('base_url'))
-{
-	function base_url($uri = '')
-	{
-		$CI =& get_instance();
-		return $CI->config->base_url($uri);
-	}
+        if (!isset($code_mcc[$cc])) {
+            return FAlSE;
+        }
+
+        return $code_mcc[$cc];
+    }
 }
 
-// ------------------------------------------------------------------------
-
-/**
- * Current URL
- *
- * Returns the full URL (including segments) of the page where this
- * function is placed
- *
- * @access	public
- * @return	string
- */
-if ( ! function_exists('current_url'))
-{
-	function current_url()
-	{
-		$CI =& get_instance();
-		return $CI->config->site_url($CI->uri->uri_string());
-	}
-}
-
-// ------------------------------------------------------------------------
-/**
- * URL String
- *
- * Returns the URI segments.
- *
- * @access	public
- * @return	string
- */
-if ( ! function_exists('uri_string'))
-{
-	function uri_string()
-	{
-		$CI =& get_instance();
-		return $CI->uri->uri_string();
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Index page
- *
- * Returns the "index_page" from your config file
- *
- * @access	public
- * @return	string
- */
-if ( ! function_exists('index_page'))
-{
-	function index_page()
-	{
-		$CI =& get_instance();
-		return $CI->config->item('index_page');
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Anchor Link
- *
- * Creates an anchor based on the local URL.
- *
- * @access	public
- * @param	string	the URL
- * @param	string	the link title
- * @param	mixed	any attributes
- * @return	string
- */
-if ( ! function_exists('anchor'))
-{
-	function anchor($uri = '', $title = '', $attributes = '')
-	{
-		$title = (string) $title;
-
-		if ( ! is_array($uri))
-		{
-			$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
-		}
-		else
-		{
-			$site_url = site_url($uri);
-		}
-
-		if ($title == '')
-		{
-			$title = $site_url;
-		}
-
-		if ($attributes != '')
-		{
-			$attributes = _parse_attributes($attributes);
-		}
-
-		return '<a href="'.$site_url.'"'.$attributes.'>'.$title.'</a>';
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Anchor Link - Pop-up version
- *
- * Creates an anchor based on the local URL. The link
- * opens a new window based on the attributes specified.
- *
- * @access	public
- * @param	string	the URL
- * @param	string	the link title
- * @param	mixed	any attributes
- * @return	string
- */
-if ( ! function_exists('anchor_popup'))
-{
-	function anchor_popup($uri = '', $title = '', $attributes = FALSE)
-	{
-		$title = (string) $title;
-
-		$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
-
-		if ($title == '')
-		{
-			$title = $site_url;
-		}
-
-		if ($attributes === FALSE)
-		{
-			return "<a href='javascript:void(0);' onclick=\"window.open('".$site_url."', '_blank');\">".$title."</a>";
-		}
-
-		if ( ! is_array($attributes))
-		{
-			$attributes = array();
-		}
-
-		foreach (array('width' => '800', 'height' => '600', 'scrollbars' => 'yes', 'status' => 'yes', 'resizable' => 'yes', 'screenx' => '0', 'screeny' => '0', ) as $key => $val)
-		{
-			$atts[$key] = ( ! isset($attributes[$key])) ? $val : $attributes[$key];
-			unset($attributes[$key]);
-		}
-
-		if ($attributes != '')
-		{
-			$attributes = _parse_attributes($attributes);
-		}
-
-		return "<a href='javascript:void(0);' onclick=\"window.open('".$site_url."', '_blank', '"._parse_attributes($atts, TRUE)."');\"$attributes>".$title."</a>";
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Mailto Link
- *
- * @access	public
- * @param	string	the email address
- * @param	string	the link title
- * @param	mixed	any attributes
- * @return	string
- */
-if ( ! function_exists('mailto'))
-{
-	function mailto($email, $title = '', $attributes = '')
-	{
-		$title = (string) $title;
-
-		if ($title == "")
-		{
-			$title = $email;
-		}
-
-		$attributes = _parse_attributes($attributes);
-
-		return '<a href="mailto:'.$email.'"'.$attributes.'>'.$title.'</a>';
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Encoded Mailto Link
- *
- * Create a spam-protected mailto link written in Javascript
- *
- * @access	public
- * @param	string	the email address
- * @param	string	the link title
- * @param	mixed	any attributes
- * @return	string
- */
-if ( ! function_exists('safe_mailto'))
-{
-	function safe_mailto($email, $title = '', $attributes = '')
-	{
-		$title = (string) $title;
-
-		if ($title == "")
-		{
-			$title = $email;
-		}
-
-		for ($i = 0; $i < 16; $i++)
-		{
-			$x[] = substr('<a href="mailto:', $i, 1);
-		}
-
-		for ($i = 0; $i < strlen($email); $i++)
-		{
-			$x[] = "|".ord(substr($email, $i, 1));
-		}
-
-		$x[] = '"';
-
-		if ($attributes != '')
-		{
-			if (is_array($attributes))
-			{
-				foreach ($attributes as $key => $val)
-				{
-					$x[] =  ' '.$key.'="';
-					for ($i = 0; $i < strlen($val); $i++)
-					{
-						$x[] = "|".ord(substr($val, $i, 1));
-					}
-					$x[] = '"';
-				}
-			}
-			else
-			{
-				for ($i = 0; $i < strlen($attributes); $i++)
-				{
-					$x[] = substr($attributes, $i, 1);
-				}
-			}
-		}
-
-		$x[] = '>';
-
-		$temp = array();
-		for ($i = 0; $i < strlen($title); $i++)
-		{
-			$ordinal = ord($title[$i]);
-
-			if ($ordinal < 128)
-			{
-				$x[] = "|".$ordinal;
-			}
-			else
-			{
-				if (count($temp) == 0)
-				{
-					$count = ($ordinal < 224) ? 2 : 3;
-				}
-
-				$temp[] = $ordinal;
-				if (count($temp) == $count)
-				{
-					$number = ($count == 3) ? (($temp['0'] % 16) * 4096) + (($temp['1'] % 64) * 64) + ($temp['2'] % 64) : (($temp['0'] % 32) * 64) + ($temp['1'] % 64);
-					$x[] = "|".$number;
-					$count = 1;
-					$temp = array();
-				}
-			}
-		}
-
-		$x[] = '<'; $x[] = '/'; $x[] = 'a'; $x[] = '>';
-
-		$x = array_reverse($x);
-		ob_start();
-
-	?><script type="text/javascript">
-	//<![CDATA[
-	var l=new Array();
-	<?php
-	$i = 0;
-	foreach ($x as $val){ ?>l[<?php echo $i++; ?>]='<?php echo $val; ?>';<?php } ?>
-
-	for (var i = l.length-1; i >= 0; i=i-1){
-	if (l[i].substring(0, 1) == '|') document.write("&#"+unescape(l[i].substring(1))+";");
-	else document.write(unescape(l[i]));}
-	//]]>
-	</script><?php
-
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		return $buffer;
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Auto-linker
- *
- * Automatically links URL and Email addresses.
- * Note: There's a bit of extra code here to deal with
- * URLs or emails that end in a period.  We'll strip these
- * off and add them after the link.
- *
- * @access	public
- * @param	string	the string
- * @param	string	the type: email, url, or both
- * @param	bool	whether to create pop-up links
- * @return	string
- */
-if ( ! function_exists('auto_link'))
-{
-	function auto_link($str, $type = 'both', $popup = FALSE)
-	{
-		if ($type != 'email')
-		{
-			if (preg_match_all("#(^|\s|\()((http(s?)://)|(www\.))(\w+[^\s\)\<]+)#i", $str, $matches))
-			{
-				$pop = ($popup == TRUE) ? " target=\"_blank\" " : "";
-
-				for ($i = 0; $i < count($matches['0']); $i++)
-				{
-					$period = '';
-					if (preg_match("|\.$|", $matches['6'][$i]))
-					{
-						$period = '.';
-						$matches['6'][$i] = substr($matches['6'][$i], 0, -1);
-					}
-
-					$str = str_replace($matches['0'][$i],
-										$matches['1'][$i].'<a href="http'.
-										$matches['4'][$i].'://'.
-										$matches['5'][$i].
-										$matches['6'][$i].'"'.$pop.'>http'.
-										$matches['4'][$i].'://'.
-										$matches['5'][$i].
-										$matches['6'][$i].'</a>'.
-										$period, $str);
-				}
-			}
-		}
-
-		if ($type != 'url')
-		{
-			if (preg_match_all("/([a-zA-Z0-9_\.\-\+]+)@([a-zA-Z0-9\-]+)\.([a-zA-Z0-9\-\.]*)/i", $str, $matches))
-			{
-				for ($i = 0; $i < count($matches['0']); $i++)
-				{
-					$period = '';
-					if (preg_match("|\.$|", $matches['3'][$i]))
-					{
-						$period = '.';
-						$matches['3'][$i] = substr($matches['3'][$i], 0, -1);
-					}
-
-					$str = str_replace($matches['0'][$i], safe_mailto($matches['1'][$i].'@'.$matches['2'][$i].'.'.$matches['3'][$i]).$period, $str);
-				}
-			}
-		}
-
-		return $str;
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Prep URL
- *
- * Simply adds the http:// part if no scheme is included
- *
- * @access	public
- * @param	string	the URL
- * @return	string
- */
-if ( ! function_exists('prep_url'))
-{
-	function prep_url($str = '')
-	{
-		if ($str == 'http://' OR $str == '')
-		{
-			return '';
-		}
-
-		$url = parse_url($str);
-
-		if ( ! $url OR ! isset($url['scheme']))
-		{
-			$str = 'http://'.$str;
-		}
-
-		return $str;
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Create URL Title
- *
- * Takes a "title" string as input and creates a
- * human-friendly URL string with a "separator" string 
- * as the word separator.
- *
- * @access	public
- * @param	string	the string
- * @param	string	the separator
- * @return	string
- */
-if ( ! function_exists('url_title'))
-{
-	function url_title($str, $separator = '-', $lowercase = FALSE)
-	{
-		if ($separator == 'dash') 
-		{
-		    $separator = '-';
-		}
-		else if ($separator == 'underscore')
-		{
-		    $separator = '_';
-		}
-		
-		$q_separator = preg_quote($separator);
-
-		$trans = array(
-			'&.+?;'                 => '',
-			'[^a-z0-9 _-]'          => '',
-			'\s+'                   => $separator,
-			'('.$q_separator.')+'   => $separator
-		);
-
-		$str = strip_tags($str);
-
-		foreach ($trans as $key => $val)
-		{
-			$str = preg_replace("#".$key."#i", $val, $str);
-		}
-
-		if ($lowercase === TRUE)
-		{
-			$str = strtolower($str);
-		}
-
-		return trim($str, $separator);
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Header Redirect
- *
- * Header redirect in two flavors
- * For very fine grained control over headers, you could use the Output
- * Library's set_header() function.
- *
- * @access	public
- * @param	string	the URL
- * @param	string	the method: location or redirect
- * @return	string
- */
-if ( ! function_exists('redirect'))
-{
-	function redirect($uri = '', $method = 'location', $http_response_code = 302)
-	{
-		if ( ! preg_match('#^https?://#i', $uri))
-		{
-			$uri = site_url($uri);
-		}
-
-		switch($method)
-		{
-			case 'refresh'	: header("Refresh:0;url=".$uri);
-				break;
-			default			: header("Location: ".$uri, TRUE, $http_response_code);
-				break;
-		}
-		exit;
-	}
-}
-
-// ------------------------------------------------------------------------
-
-/**
- * Parse out the attributes
- *
- * Some of the functions use this
- *
- * @access	private
- * @param	array
- * @param	bool
- * @return	string
- */
-if ( ! function_exists('_parse_attributes'))
-{
-	function _parse_attributes($attributes, $javascript = FALSE)
-	{
-		if (is_string($attributes))
-		{
-			return ($attributes != '') ? ' '.$attributes : '';
-		}
-
-		$att = '';
-		foreach ($attributes as $key => $val)
-		{
-			if ($javascript == TRUE)
-			{
-				$att .= $key . '=' . $val . ',';
-			}
-			else
-			{
-				$att .= ' ' . $key . '="' . $val . '"';
-			}
-		}
-
-		if ($javascript == TRUE AND $att != '')
-		{
-			$att = substr($att, 0, -1);
-		}
-
-		return $att;
-	}
-}
-
-
-/* End of file url_helper.php */
-/* Location: ./system/helpers/url_helper.php */
+/* End of file mcc_helper.php */
+/* Location: ./system/helpers/mcc_helper.php */
